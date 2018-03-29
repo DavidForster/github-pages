@@ -2,7 +2,7 @@ FROM alpine:3.7
 
 ENV SRCPATH="/home/jekyll/src" \
     SRVPATH="/srv" \
-    GITHUB_PAGES_VERSION="177"
+    GITHUB_PAGES_VERSION="178"
 
 RUN apk --no-cache add \
         build-base \
