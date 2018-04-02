@@ -27,4 +27,4 @@ VOLUME ${SRCPATH} ${SRVPATH}
 
 EXPOSE 4000
 
-ENTRYPOINT jekyll serve --destination ${SRVPATH} --watch --incremental --strict_front_matter --drafts --future --host 0.0.0.0
+ENTRYPOINT /usr/bin/jekyll serve --destination ${SRVPATH} --watch --incremental --strict_front_matter --drafts --future --host 0.0.0.0
