@@ -27,4 +27,7 @@ VOLUME ${SRCPATH} ${SRVPATH}
 
 EXPOSE 4000
 
-ENTRYPOINT /usr/bin/jekyll serve --destination ${SRVPATH} --watch --incremental --strict_front_matter --drafts --future --host 0.0.0.0
+ADD entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["jekyll"]
