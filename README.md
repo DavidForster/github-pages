@@ -1,5 +1,7 @@
 # Docker container for local GitHub Pages development
 
+[![](https://images.microbadger.com/badges/image/davidforster/github-pages.svg)](https://microbadger.com/images/davidforster/github-pages "Get your own image badge on microbadger.com")
+
 ## Synopsis
 
 An Alpine based lightweight container for local GitHub Pages development
