@@ -4,7 +4,7 @@ FROM alpine:3.7
 # Set paths and GitHub Pages gem version to use
 ENV SRCPATH="/home/jekyll/src" \
     SRVPATH="/srv" \
-    GITHUB_PAGES_VERSION="184"
+    GITHUB_PAGES_VERSION="185"
 
 # Install build dependencies
 RUN apk --no-cache add --virtual build-dependencies \
