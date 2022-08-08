@@ -1,10 +1,10 @@
 # Parent container
-FROM alpine:3.7
+FROM alpine:3.12.12
 
 # Set paths and GitHub Pages gem version to use
 ENV SRCPATH="/home/jekyll/src" \
     SRVPATH="/srv" \
-    GITHUB_PAGES_VERSION="192"
+    GITHUB_PAGES_VERSION="227"
 
 # Install build dependencies
 RUN apk --no-cache add --virtual build-dependencies \
@@ -14,6 +14,7 @@ RUN apk --no-cache add --virtual build-dependencies \
 # Install runtime requirements
     && apk --no-cache add \
         ruby \
+        ruby-full \
         ruby-json \
 # Install GitHub Pages gem
     && gem install github-pages --version ${GITHUB_PAGES_VERSION} --no-document \
