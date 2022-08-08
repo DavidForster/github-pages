@@ -14,6 +14,7 @@ RUN apk --no-cache add --virtual build-dependencies \
 # Install runtime requirements
     && apk --no-cache add \
         ruby \
+        ruby-full \
         ruby-json \
 # Install GitHub Pages gem
     && gem install github-pages --version ${GITHUB_PAGES_VERSION} --no-document \
