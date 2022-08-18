@@ -1,5 +1,5 @@
 # Parent container
-FROM alpine:3.12.12
+FROM alpine:3.13
 
 # Set paths and GitHub Pages gem version to use
 ENV SRCPATH="/home/jekyll/src" \
