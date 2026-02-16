@@ -8,7 +8,7 @@ This repository is a Docker image (`davidforster/github-pages`) for local GitHub
 
 ## Architecture
 
-- **Dockerfile**: Builds from `alpine:3.13`, installs the `github-pages` gem at the version pinned in `GITHUB_PAGES_VERSION`, creates a `jekyll` user, and sets up two directories: `/home/jekyll/src` (source) and `/srv` (generated output).
+- **Dockerfile**: Builds from `alpine:3.23`, installs the `github-pages` gem at the version pinned in `GITHUB_PAGES_VERSION`, creates a `jekyll` user, and sets up two directories: `/home/jekyll/src` (source) and `/srv` (generated output).
 - **entrypoint.sh**: When invoked with `jekyll` (the default CMD), runs `jekyll serve` with `--watch`, `--incremental`, `--drafts`, `--future`, and `--strict_front_matter`. Any other argument is passed directly to `jekyll`.
 - **index.html**: A minimal Jekyll page used as the default content when no volume is mounted.
 
@@ -22,10 +22,18 @@ This repository is a Docker image (`davidforster/github-pages`) for local GitHub
 
 ## Building and Running
 
-Build the image:
+Build locally (single platform):
 ```sh
-docker build -t davidforster/github-pages .
+make build
 ```
+
+Build and push multi-platform (`linux/amd64,linux/arm64`) to Docker Hub:
+```sh
+make push          # pushes :<version> and :latest
+make push-latest   # pushes :latest only
+```
+
+`make push` requires a `docker buildx` builder: `docker buildx create --use` (one-time setup).
 
 Run with default test page:
 ```sh
@@ -37,7 +45,15 @@ Run with a local Jekyll site:
 docker run -p 4000:4000 -v /path/to/site:/home/jekyll/src davidforster/github-pages
 ```
 
-To upgrade the gem version, update `GITHUB_PAGES_VERSION` in the Dockerfile. Image tags on Docker Hub correspond to the `github-pages` gem version number.
+To upgrade the gem version, update `GITHUB_PAGES_VERSION` in the Dockerfile. The version tag applied to the Docker image is extracted automatically from that value. Image tags on Docker Hub correspond to the `github-pages` gem version number.
+
+## Gemfile / Gemfile.lock in user sites
+
+The container itself is the locked environment, so projects do not need a `Gemfile.lock`. If a mounted site has a `Gemfile.lock` that pins different gem versions, Jekyll will fail at startup. Either delete the lockfile and add it to `.gitignore`, or regenerate it against the container:
+
+```sh
+docker run --rm -v /path/to/site:/home/jekyll/src --entrypoint bundle davidforster/github-pages update
+```
 
 ## Ruby 3.4 note
 
