@@ -38,3 +38,7 @@ docker run -p 4000:4000 -v /path/to/site:/home/jekyll/src davidforster/github-pa
 ```
 
 To upgrade the gem version, update `GITHUB_PAGES_VERSION` in the Dockerfile. Image tags on Docker Hub correspond to the `github-pages` gem version number.
+
+## Ruby 3.4 note
+
+Alpine 3.23 ships Ruby 3.4, which removed `csv` and `base64` from stdlib. Jekyll 3.10.0 (bundled in `github-pages` 232) depends on both, so the Dockerfile explicitly installs them as standalone gems after the main gem install. If `github-pages` is updated to a version that declares these as explicit dependencies, the extra `gem install csv base64` line can be removed.

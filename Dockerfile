@@ -1,5 +1,5 @@
 # Parent container
-FROM alpine:3.21
+FROM alpine:3.23
 
 # Set paths and GitHub Pages gem version to use
 ENV SRCPATH="/home/jekyll/src" \
@@ -16,9 +16,9 @@ RUN apk --no-cache add --virtual build-dependencies \
     && apk --no-cache add \
         ruby \
         ruby-full \
-        ruby-json \
 # Install GitHub Pages gem
     && gem install github-pages --version ${GITHUB_PAGES_VERSION} --no-document \
+    && gem install csv base64 --no-document \
 # Create a group and user to run
     && addgroup -S jekyll \
     && adduser -S -G jekyll jekyll \
